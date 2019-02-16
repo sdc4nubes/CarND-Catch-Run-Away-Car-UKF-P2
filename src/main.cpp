@@ -89,8 +89,8 @@ int main() {
 					if (target_x != 0.0 && target_y != 0.0) {
 						double diff_x = save_x - target_x;
 						double diff_y = save_y - target_y;
-						target_x += max(diff_x * 20, 10. * diff_x / fabs(diff_x));
-						target_y += max(diff_y * 20, 10. * diff_y / fabs(diff_y));
+						target_x += max(diff_x * 20, 2. * diff_x / fabs(diff_x));
+						target_y += max(diff_y * 20, 2. * diff_y / fabs(diff_y));
 					} else {
 						target_x = save_x;
 						target_y = save_y;
