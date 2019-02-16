@@ -89,10 +89,10 @@ int main() {
 					if (target_x != 0.0 && target_y != 0.0) {
 						double diff_x = (save_x - target_x) * 10.;
 						double diff_y = (save_y - target_y) * 10.;
-						if (diff_x >= 0.) target_x += max(diff_x, 2.);
-						if (diff_y >= 0.) target_y += max(diff_y, 2.);
-						if (diff_x < 0.) target_x += min(diff_x, -2.);
-						if (diff_y < 0.) target_y += min(diff_y, -2.);
+						if (diff_x >= 0.) target_x += max(diff_x, diff_x);
+						if (diff_y >= 0.) target_y += max(diff_y, diff_y);
+						if (diff_x < 0.) target_x += min(diff_x, -diff_x);
+						if (diff_y < 0.) target_y += min(diff_y, -diff_y);
 					} else {
 						target_x = save_x;
 						target_y = save_y;
