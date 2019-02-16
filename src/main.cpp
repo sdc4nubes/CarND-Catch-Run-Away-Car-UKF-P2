@@ -86,7 +86,7 @@ int main() {
     			ukf.ProcessMeasurement(meas_package_R);
 					if (target_x != 0.0 && target_y != 0.0) {
 						target_x = ukf.x_[0] + (ukf.x_[0] - target_x) * 5;
-						target_y = ukf.x_[1] + (ukf.x_[1] - target_y) * 5;
+						target_y = ukf.x_[1] - (ukf.x_[1] - target_y) * 5;
 					} else {
 						target_x = ukf.x_[0];
 						target_y = ukf.x_[1];
