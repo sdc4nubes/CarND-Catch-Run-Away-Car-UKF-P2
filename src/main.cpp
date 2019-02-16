@@ -85,8 +85,8 @@ int main() {
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
 					if (target_x == 0.0 && target_y == 0.0) {
-						target_x = ukf.x_[0] + (target_x - ukf.x_[0]) * 20;
-						target_y = ukf.x_[1] + (target_y - ukf.x_[1]) * 20;
+						target_x = ukf.x_[0] + (ukf.x_[0] - target_x) * 20;
+						target_y = ukf.x_[1] + (ukf.x_[1] - target_y) * 20;
 					}
 					else {
 						target_x = ukf.x_[0];
