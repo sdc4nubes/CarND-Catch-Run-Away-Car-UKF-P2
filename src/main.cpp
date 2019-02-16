@@ -84,7 +84,7 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					cout << "h_x: " << hunter_x << ", h_y: " << hunter_y << "t_x: " << target_x << ", t_y: " << target_y << "p_x: " << ukf.x_[0] << ", p_y: " << ukf.x_[1];
+					cout << "h_x: " << hunter_x << ", h_y: " << hunter_y << ", t_x: " << target_x << ", t_y: " << target_y << ", p_x: " << ukf.x_[0] << ", p_y: " << ukf.x_[1] << endl;
 					double save_x = ukf.x_[0];
 					double save_y = ukf.x_[1];
 					if (target_x != 0.0 && target_y != 0.0) {
