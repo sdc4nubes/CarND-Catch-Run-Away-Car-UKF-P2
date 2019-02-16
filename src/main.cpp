@@ -87,8 +87,8 @@ int main() {
 					double save_x = ukf.x_[0];
 					double save_y = ukf.x_[1];
 					if (target_x != 0.0 && target_y != 0.0) {
-						double diff_x = (save_x - target_x) * 50.;
-						double diff_y = (save_y - target_y) * 50.;
+						double diff_x = (save_x - target_x) * 10.;
+						double diff_y = (save_y - target_y) * 10.;
 						if (diff_x >= 0.) target_x += max(target_x + diff_x, 10. * diff_x / fabs(diff_x));
 						if (diff_y >= 0.) target_y += max(target_y + diff_y, 10. * diff_y / fabs(diff_y));
 						if (diff_x < 0.) target_x += min(target_x + diff_x, 10. * diff_x / fabs(diff_x));
