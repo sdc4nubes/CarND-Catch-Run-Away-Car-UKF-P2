@@ -91,8 +91,8 @@ int main() {
 						double diff_y = (save_y - target_y) * 10.;
 						if (diff_x >= 0.) target_x += max(diff_x, 2.);
 						if (diff_y >= 0.) target_y += max(diff_y, 2.);
-						if (diff_x < 0.) target_x += min(target_x + diff_x, -2.);
-						if (diff_y < 0.) target_y += min(target_y + diff_y, -2.);
+						if (diff_x < 0.) target_x += min(diff_x, -2.);
+						if (diff_y < 0.) target_y += min(diff_y, -2.);
 					} else {
 						target_x = save_x;
 						target_y = save_y;
