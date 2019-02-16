@@ -87,8 +87,8 @@ int main() {
 					double save_x = ukf.x_[0];
 					double save_y = ukf.x_[1];
 					if (target_x != 0.0 && target_y != 0.0) {
-						target_x = target_x + (save_x - target_x) * 3;
-						target_y = target_y + (save_y - target_y) * 3;
+						target_x = target_x + (save_x - target_x) * 10;
+						target_y = target_y + (save_y - target_y) * 10;
 					} else {
 						target_x = save_x;
 						target_y = save_y;
