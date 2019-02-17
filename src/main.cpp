@@ -89,7 +89,7 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
-					if (distance_difference > 30.) go_home = true;
+					if (distance_difference > 15.) go_home = true;
 					if (distance_difference < 5.) go_home = false;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
@@ -99,7 +99,7 @@ int main() {
 					double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= .5;
+					//heading_difference *= .5;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
