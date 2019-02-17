@@ -91,7 +91,7 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - save_y) * (target_y - save_y) + \
 						(target_x - save_x) * (target_x - save_x));
-					if (distance_difference > .05) {
+					if (distance_difference > .05 && save_x != 0. && save_y != 0.) {
 						target_x = save_x;
 						target_y = save_y;
 					}
