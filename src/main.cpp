@@ -28,8 +28,8 @@ int main() {
   uWS::Hub h;
   // Create a UKF instance
   UKF ukf;
-  double target_x = 0.0;
-	double target_y = 0.0;
+  vector<double> target_x(0);
+	vector<double> target_y(0);
 	bool go_home = false;
   h.onMessage([&ukf, &target_x, &target_y, &go_home]
 		(uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
@@ -85,14 +85,30 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					target_x = ukf.x_[0];
-					target_y = ukf.x_[1];
-					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
-						(target_x - hunter_x) * (target_x - hunter_x));
+					target_x.insert(target_x.begin(), ukf.x_[0]);
+					target_x.insert(target_y.begin(), ukf.x_[1]);
+					int v_max = 10;
+					while (target_x.size > v_max) target_x.pop_back;
+					while (target_y.size > v_max) target_y.pop_back;
+					double x_median;
+					double y_median;
+					double median;
+					vector<double> temp;
+					for (int i = 0; i < 2; i++) {
+						temp = target_x;
+						if (i == 1) temp = target_y;
+						sort(temp.begin(), temp.end());
+						if (temp.size() % 2 == 0) median = (temp[temp.size() / 2 - 1] + temp[temp.size / 2]) / 2;
+						else median = temp[temp.size() / 2];
+						if (i == 0) x_median = median;
+						else y_median = median;
+					}
+					double distance_difference = sqrt((y_median - hunter_y) * (y_median - hunter_y) + \
+						(x_median - hunter_x) * (x_median - hunter_x));
 					if (distance_difference > 12.) go_home = true;
 					if (distance_difference < 3.) go_home = false;
-					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
-					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
+					double heading_to_target = 1. / -atan2(y_median - hunter_y, x_median - hunter_x);
+					if (go_home) heading_to_target = atan2(y_median - hunter_y, x_median - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
