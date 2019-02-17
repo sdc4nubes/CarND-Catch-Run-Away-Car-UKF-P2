@@ -93,7 +93,7 @@ int main() {
     			while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI; 
     			while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
     			//turn towards the target
-    			double heading_difference = (heading_to_target - hunter_heading) * 5;
+    			double heading_difference = heading_to_target - hunter_heading;
     			while (heading_difference > M_PI) heading_difference -= 2.* M_PI; 
     			while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
     			double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
