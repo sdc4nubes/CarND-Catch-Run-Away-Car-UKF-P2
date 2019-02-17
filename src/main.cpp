@@ -88,8 +88,8 @@ int main() {
 					target_x.insert(target_x.begin(), ukf.x_[0]);
 					target_x.insert(target_y.begin(), ukf.x_[1]);
 					int v_max = 10;
-					while (target_x.size > v_max) target_x.pop_back;
-					while (target_y.size > v_max) target_y.pop_back;
+					while (target_x.size() > v_max) target_x.pop_back();
+					while (target_y.size() > v_max) target_y.pop_back();
 					double x_median;
 					double y_median;
 					double median;
@@ -98,7 +98,7 @@ int main() {
 						temp = target_x;
 						if (i == 1) temp = target_y;
 						sort(temp.begin(), temp.end());
-						if (temp.size() % 2 == 0) median = (temp[temp.size() / 2 - 1] + temp[temp.size / 2]) / 2;
+						if (temp.size() % 2 == 0) median = (temp[temp.size() / 2 - 1] + temp[temp.size() / 2]) / 2;
 						else median = temp[temp.size() / 2];
 						if (i == 0) x_median = median;
 						else y_median = median;
