@@ -97,7 +97,7 @@ int main() {
 					double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= max(1., distance_difference);
+					heading_difference *= min(1., distance_difference);
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
