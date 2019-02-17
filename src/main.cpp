@@ -93,13 +93,13 @@ int main() {
     			while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI; 
     			while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
     			//turn towards the target
-    			double heading_difference = heading_to_target - hunter_heading;
+    			double heading_difference = (heading_to_target - hunter_heading) * 5;
     			while (heading_difference > M_PI) heading_difference -= 2.* M_PI; 
     			while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
     			double distance_difference = sqrt((adj_y - hunter_y) * (adj_y - hunter_y) + \
 						(adj_x - hunter_x) * (adj_x - hunter_x));
           json msgJson;
-					cout << hunter_heading << heading_difference << endl;
+					cout << hunter_heading << " ." << heading_difference << endl;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
           auto msg = "42[\"move_hunter\"," + msgJson.dump() + "]";
