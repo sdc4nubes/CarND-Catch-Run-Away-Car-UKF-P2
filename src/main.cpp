@@ -89,7 +89,7 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
-					if (distance_difference > 20.) go_home = true;
+					if (distance_difference > 15.) go_home = true;
 					if (go_home && distance_difference < 2.) {
 						go_home = false;
 						target_x = 0.;
