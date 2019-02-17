@@ -100,13 +100,12 @@ int main() {
 						while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 						distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 							(target_x - hunter_x) * (target_x - hunter_x));
-						if (distance_difference > 1.) {
+						if (distance_difference > 1. && iflag == 0) {
 							heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
 							iflag += 1;
 						}
 						else {
 							iflag = 2;
-							heading_difference *= 10.;
 						}
 					}
           json msgJson;
