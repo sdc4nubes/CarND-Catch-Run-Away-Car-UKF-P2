@@ -99,7 +99,7 @@ int main() {
 						go_home = true;
 					if (distance_difference < 3.) go_home = false;
 					double num = .75;
-					if (min_distance < 3.) num = .25;
+					if (min_distance < 3.) num = .5;
 					double heading_to_target = num / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
@@ -108,7 +108,7 @@ int main() {
 					double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= .1;
+					heading_difference *= .25;
 					json msgJson;
 					msgJson["turn"] = heading_difference;
 					msgJson["dist"] = distance_difference;
