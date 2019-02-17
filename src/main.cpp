@@ -87,7 +87,7 @@ int main() {
 					//cout << "h_x:, " << hunter_x << ", h_y:, " << hunter_y << ", t_x:, " << target_x << ", t_y:, " << target_y << ", p_x:, " << ukf.x_[0] << ", p_y:, " << ukf.x_[1] << endl;
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
-    			double heading_to_target = atan2(target_y * 10 - hunter_y, target_x * 10 - hunter_x);
+    			double heading_to_target = atan2(target_y * 5 - hunter_y, target_x * 5 - hunter_x);
     			while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI; 
     			while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
     			//turn towards the target
