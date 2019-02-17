@@ -93,7 +93,6 @@ int main() {
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home && distance_difference < 2.) {
-						heading_to_target *= -.5;
 						go_home = false;
 					}
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
