@@ -92,7 +92,7 @@ int main() {
 					if (distance_difference > 20.) go_home = true;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
-					if (go_home && distance_difference < .3) heading_to_target *= -.5;
+					if (go_home && distance_difference < 1.) heading_to_target *= -.5;
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
