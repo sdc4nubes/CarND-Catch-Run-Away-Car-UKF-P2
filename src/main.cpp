@@ -84,7 +84,7 @@ int main() {
           meas_package_R.raw_measurements_ << ro,theta, ro_dot;
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
-    			ukf.ProcessMeasurement(meas_package_R);
+    			//ukf.ProcessMeasurement(meas_package_R);
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
