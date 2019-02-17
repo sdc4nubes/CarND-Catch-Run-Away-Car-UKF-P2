@@ -84,8 +84,10 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					target_x = ukf.x_[0];
-					target_y = ukf.x_[1];
+					double save_target_x = target_x;
+					double save_target_y = target_y;
+					target_x = .1 * ukf.x_[0] + .9 * save_target_x;
+					target_y = .1 * ukf.x_[1] + .9 * save_target_y;
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
