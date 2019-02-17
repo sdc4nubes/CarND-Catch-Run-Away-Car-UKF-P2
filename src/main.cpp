@@ -88,7 +88,6 @@ int main() {
 					double save_target_y = target_y;
 					target_x = .1 * ukf.x_[0] + .9 * save_target_x;
 					target_y = .1 * ukf.x_[1] + .9 * save_target_y;
-					cout << target_x << ", " << target_y << endl;
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
@@ -98,7 +97,6 @@ int main() {
 					double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= min(1., distance_difference);
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
