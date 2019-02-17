@@ -100,7 +100,7 @@ int main() {
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 					heading_difference *= .25;
-					if (distance_difference < .2) heading_difference = 0.;
+					if (distance_difference < .3) heading_difference = 0.;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
