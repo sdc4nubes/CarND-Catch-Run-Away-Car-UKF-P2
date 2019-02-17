@@ -86,9 +86,8 @@ int main() {
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
 					target_x.insert(target_x.begin(), ukf.x_[0]);
-					target_x.insert(target_y.begin(), ukf.x_[1]);
+					target_y.insert(target_y.begin(), ukf.x_[1]);
 					int v_max = 10;
-					cout << "I am here" << endl;
 					while (target_x.size() > v_max) target_x.pop_back();
 					while (target_y.size() > v_max) target_y.pop_back();
 					double x_median;
@@ -103,7 +102,6 @@ int main() {
 						else median = temp[temp.size() / 2];
 						if (i == 0) x_median = median;
 						else y_median = median;
-						cout << median << endl;
 					}
 					double distance_difference = sqrt((y_median - hunter_y) * (y_median - hunter_y) + \
 						(x_median - hunter_x) * (x_median - hunter_x));
