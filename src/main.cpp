@@ -47,6 +47,7 @@ int main() {
           double hunter_x = std::stod(j[1]["hunter_x"].get<std::string>());
           double hunter_y = std::stod(j[1]["hunter_y"].get<std::string>());
           double hunter_heading = std::stod(j[1]["hunter_heading"].get<std::string>());
+					if (hunter_x == -10) cout << "restart" << endl;
           string lidar_measurment = j[1]["lidar_measurement"];
           MeasurementPackage meas_package_L;
           istringstream iss_L(lidar_measurment);
