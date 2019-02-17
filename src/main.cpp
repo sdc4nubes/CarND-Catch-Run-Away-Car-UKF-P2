@@ -121,6 +121,9 @@ int main() {
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 					heading_difference *= .5;
+					double max_hdiff = .2;
+					if (heading_difference > 0.) heading_difference = min(max_hdiff, heading_difference);
+					if (heading_difference < 0.) heading_difference = max(-max_hdiff, heading_difference);
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
