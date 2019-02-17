@@ -95,6 +95,7 @@ int main() {
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference < min_distance) min_distance = distance_difference;
+					if (distance_difference > 6 && min_distance < 3.) go_home = true;
 					if (distance_difference > 12.) go_home = true;
 					if (distance_difference < 3.) go_home = false;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
