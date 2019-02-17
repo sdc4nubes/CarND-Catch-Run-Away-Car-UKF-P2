@@ -86,7 +86,7 @@ int main() {
     			ukf.ProcessMeasurement(meas_package_R);
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
-					double heading_to_target = 1.25 / -atan2(target_y - hunter_y, target_x - hunter_x);
+					double heading_to_target = .85 / -atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
