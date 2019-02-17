@@ -86,9 +86,9 @@ int main() {
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
 					target_x.insert(target_x.begin(), ukf.x_[0]);
-					if (target_x.size() > 30) target_x.pop_back();
+					if (target_x.size() > 10) target_x.pop_back();
 					target_y.insert(target_y.begin(), ukf.x_[1]);
-					if (target_y.size() > 30) target_y.pop_back();
+					if (target_y.size() > 10) target_y.pop_back();
 					double avg_x = accumulate(target_x.begin(), target_x.end(), 0.0) / target_x.size();
 					double avg_y = accumulate(target_y.begin(), target_y.end(), 0.0) / target_y.size();
 					double distance_difference = sqrt((avg_y - hunter_y) * (avg_y - hunter_y) + \
