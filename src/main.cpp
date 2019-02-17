@@ -104,8 +104,8 @@ int main() {
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 					if (not go_home) heading_difference *= .5;
 					if (distance_difference < .3) heading_difference *= .2;
-					else if (heading_difference > 0.) heading_difference = min(heading_difference, .1);
-					else heading_difference = max(heading_difference, -.1);
+					else if (heading_difference > 0.) heading_difference = min(heading_difference, .5);
+					else heading_difference = max(heading_difference, -.5);
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
