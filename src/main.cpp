@@ -102,8 +102,6 @@ int main() {
           auto msg = "42[\"move_hunter\"," + msgJson.dump() + "]";
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-					target_x = save_x;
-					target_y = save_y;
         }
       } else {
         // Manual driving
