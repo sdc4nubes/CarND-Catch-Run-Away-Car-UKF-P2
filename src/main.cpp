@@ -96,7 +96,7 @@ int main() {
 						vector<double> temp = target_x;
 						sort(temp.begin(), temp.end());
 						if (size % 2 == 0) avg_x = (temp[size / 2 - 1] + temp[size / 2]) / 2;
-						else avg_y = temp[size / 2];
+						else avg_x = temp[size / 2];
 						temp = target_y;
 						sort(temp.begin(), temp.end());
 						if (size % 2 == 0) avg_y = (temp[size / 2 - 1] + temp[size / 2]) / 2;
