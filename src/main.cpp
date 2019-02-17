@@ -105,13 +105,15 @@ int main() {
 					double distance_difference = sqrt((avg_y - hunter_y) * (avg_y - hunter_y) + \
 						(avg_x - hunter_x) * (avg_x - hunter_x));
 					double heading_to_target = 1. / -atan2(avg_y - hunter_y, avg_x - hunter_x);
+					if (distance_difference < .3) 
+						heading_to_target = atan2(avg_y - hunter_y, avg_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
 					double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= .25;
+					heading_difference *= .1;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
