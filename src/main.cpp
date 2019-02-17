@@ -47,7 +47,6 @@ int main() {
           double hunter_x = std::stod(j[1]["hunter_x"].get<std::string>());
           double hunter_y = std::stod(j[1]["hunter_y"].get<std::string>());
           double hunter_heading = std::stod(j[1]["hunter_heading"].get<std::string>());
-					if (hunter_x == -10) cout << "restart" << endl;
           string lidar_measurment = j[1]["lidar_measurement"];
           MeasurementPackage meas_package_L;
           istringstream iss_L(lidar_measurment);
@@ -86,9 +85,14 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
+					int v_max = 10;
+					if (hunter_x == -10. && target_x.size() == v_max) {
+						target_x.clear();
+						target_y.clear();
+						go_home = false;
+					}
 					target_x.insert(target_x.begin(), ukf.x_[0]);
 					target_y.insert(target_y.begin(), ukf.x_[1]);
-					int v_max = 10;
 					while (target_x.size() > v_max) target_x.pop_back();
 					while (target_y.size() > v_max) target_y.pop_back();
 					double x_median;
