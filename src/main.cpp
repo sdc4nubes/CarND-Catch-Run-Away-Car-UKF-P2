@@ -87,9 +87,15 @@ int main() {
     			ukf.ProcessMeasurement(meas_package_R);
 					double save_x = target_x;
 					double save_y = target_y;
-					target_x = .2 * ukf.x_[0] + .8 * save_x;
-					target_y = .2 * ukf.x_[1] + .8 * save_y;
-					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
+					target_x = ukf.x_[0];
+					target_y = ukf.x_[1];
+					double distance_difference = sqrt((target_y - save_y) * (target_y - save_y) + \
+						(target_x - save_x) * (target_x - save_x));
+					if (distance_difference > .05) {
+						target_x = save_x;
+						target_y = save_y;
+					}
+					distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference > 15.) go_home = true;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
