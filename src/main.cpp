@@ -96,10 +96,10 @@ int main() {
     			while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
     			double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
-					if (distance_difference > 1) heading_to_target = \
+					if (distance_difference > 1.) heading_to_target = \
 						1 / -atan2(target_y - hunter_y, target_x - hunter_x);
           json msgJson;
-					cout << hunter_heading << ", " << heading_difference << endl;
+					cout << distance_difference << endl;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
           auto msg = "42[\"move_hunter\"," + msgJson.dump() + "]";
