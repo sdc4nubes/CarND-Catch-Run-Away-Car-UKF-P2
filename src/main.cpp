@@ -97,6 +97,7 @@ int main() {
 					if (distance_difference < min_distance) min_distance = distance_difference;
 					if ((distance_difference > 9. && min_distance < 3.) || distance_difference > 12.)
 						go_home = true;
+					double num;
 					if (distance_difference < 3.) {
 						go_home = false;
 						num = .15;
