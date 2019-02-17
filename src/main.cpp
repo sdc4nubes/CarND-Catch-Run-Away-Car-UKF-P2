@@ -88,8 +88,9 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
-					double heading_to_target = min(1., distance_difference) / \
-						-atan2(target_y - hunter_y, target_x - hunter_x);
+					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
+					if (distance_difference < .3) 
+						heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
