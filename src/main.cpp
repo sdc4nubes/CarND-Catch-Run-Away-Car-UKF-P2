@@ -95,12 +95,9 @@ int main() {
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference < min_distance) min_distance = distance_difference;
-					if ((distance_difference > 6. && min_distance < 3.) || distance_difference > 12.)
-						go_home = true;
+					if ((distance_difference > 6.) go_home = true;
 					if (distance_difference < 3.) go_home = false;
-					double num = .5;
-					if (distance_difference > 6.) num = 1.;
-					double heading_to_target = num / -atan2(target_y - hunter_y, target_x - hunter_x);
+					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
