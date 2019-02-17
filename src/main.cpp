@@ -1,6 +1,5 @@
 #include <uWS/uWS.h>
 #include <iostream>
-#include <vector>
 #include "json.hpp"
 #include <math.h>
 #include "ukf.h"
@@ -29,8 +28,8 @@ int main() {
   uWS::Hub h;
   // Create a UKF instance
   UKF ukf;
-  vector<double> target_x (0);
-	vector<double> target_y (0);
+  double target_x;
+	double target_y;
   h.onMessage([&ukf, &target_x, &target_y](uWS::WebSocket<uWS::SERVER> ws, char *data, 
 		size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -85,15 +84,11 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					target_x.insert(target_x.begin(), ukf.x_[0]);
-					if (target_x.size() > 1) target_x.pop_back();
-					target_y.insert(target_y.begin(), ukf.x_[1]);
-					if (target_y.size() > 1) target_y.pop_back();
-					double avg_x = accumulate(target_x.begin(), target_x.end(), 0.0) / target_x.size();
-					double avg_y = accumulate(target_y.begin(), target_y.end(), 0.0) / target_y.size();
-					double distance_difference = sqrt((avg_y - hunter_y) * (avg_y - hunter_y) + \
-						(avg_x - hunter_x) * (avg_x - hunter_x));
-					double heading_to_target = 1. / -atan2(avg_y - hunter_y, avg_x - hunter_x);
+					target_x = ukf.x_[0];
+					target_y = ukf.x_[1];
+					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
+						(target_x - hunter_x) * (target_x - hunter_x));
+					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
