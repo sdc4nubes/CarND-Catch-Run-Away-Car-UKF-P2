@@ -91,8 +91,10 @@ int main() {
 						target_y.clear();
 						go_home = false;
 					}
-					if (ukf.x_[0] != target_x.back()) target_x.insert(target_x.begin(), ukf.x_[0]);
-					if (ukf.x_[1] != target_y.back()) target_y.insert(target_y.begin(), ukf.x_[1]);
+					if (target_x.size() == 0 || ukf.x_[0] != target_x.back()) 
+						target_x.insert(target_x.begin(), ukf.x_[0]);
+					if (target_y.size() == 0 || ukf.x_[1] != target_y.back()) 
+						target_y.insert(target_y.begin(), ukf.x_[1]);
 					while (target_x.size() > v_max) target_x.pop_back();
 					while (target_y.size() > v_max) target_y.pop_back();
 					double x_median;
