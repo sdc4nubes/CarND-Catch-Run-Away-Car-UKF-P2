@@ -89,7 +89,7 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
-					if (distance_difference > 15.) go_home = true;
+					if (distance_difference > 12.) go_home = true;
 					if (distance_difference < 3.) go_home = false;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
