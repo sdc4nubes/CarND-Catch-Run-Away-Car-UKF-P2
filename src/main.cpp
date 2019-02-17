@@ -106,7 +106,7 @@ int main() {
 						}
 						else {
 							iflag = 2;
-							heading_to_target *= .5;
+							heading_difference *= .5;
 						}
 					}
           json msgJson;
