@@ -85,18 +85,9 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					double save_x = target_x;
-					double save_y = target_y;
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
-					double distance_difference = sqrt((target_y - save_y) * (target_y - save_y) + \
-						(target_x - save_x) * (target_x - save_x));
-					if (distance_difference > 1. && save_x != 0. && save_y != 0.) {
-						cout << distance_difference << endl;
-						target_x = save_x;
-						target_y = save_y;
-					}
-					distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
+					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference > 15.) go_home = true;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
@@ -111,7 +102,7 @@ int main() {
 					double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					if (not go_home) heading_difference *= .5;
+					if (not go_home) heading_difference *= .1;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
