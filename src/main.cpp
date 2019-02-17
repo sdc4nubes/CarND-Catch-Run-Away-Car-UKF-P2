@@ -85,7 +85,7 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					int v_max = 20;
+					int v_max = 10;
 					if (hunter_x == -10. && target_x.size() == v_max) {
 						target_x.clear();
 						target_y.clear();
