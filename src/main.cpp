@@ -102,6 +102,7 @@ int main() {
 						else median = temp[temp.size() / 2];
 						if (i == 0) x_median = median;
 						else y_median = median;
+						cout << median << endl;
 					}
 					double distance_difference = sqrt((y_median - hunter_y) * (y_median - hunter_y) + \
 						(x_median - hunter_x) * (x_median - hunter_x));
