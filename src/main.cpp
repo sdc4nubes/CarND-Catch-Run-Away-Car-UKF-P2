@@ -90,14 +90,10 @@ int main() {
 					double save_y = target_y;
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
-					double distance_difference = sqrt((target_y - save_y) * (target_y - save_y) + \
-						(target_x - save_x) * (target_x - save_x));
-					bool same_data = false;
-					if (fabs(distance_difference) > 0) same_data = true;
-					distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
+					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference > 12.) go_home = true;
-					if (not same_data && distance_difference < 3.) go_home = false;
+					if (distance_difference < 3.) go_home = false;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
