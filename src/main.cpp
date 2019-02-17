@@ -87,7 +87,7 @@ int main() {
     			ukf.ProcessMeasurement(meas_package_R);
 					target_x.insert(target_x.begin(), ukf.x_[0]);
 					target_y.insert(target_y.begin(), ukf.x_[1]);
-					int v_max = 10;
+					int v_max = 20;
 					while (target_x.size() > v_max) target_x.pop_back();
 					while (target_y.size() > v_max) target_y.pop_back();
 					double x_median;
