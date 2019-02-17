@@ -91,7 +91,8 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - save_y) * (target_y - save_y) + \
 						(target_x - save_x) * (target_x - save_x));
-					if (distance_difference > .5 && save_x != 0. && save_y != 0.) {
+					if (distance_difference > 1. && save_x != 0. && save_y != 0.) {
+						cout << distance_difference << endl;
 						target_x = save_x;
 						target_y = save_y;
 					}
