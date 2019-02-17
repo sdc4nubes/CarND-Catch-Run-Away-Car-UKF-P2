@@ -92,27 +92,29 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - save_y) * (target_y - save_y) + \
 						(target_x - save_x) * (target_x - save_x));
-					if (fabs(distance_difference) > 0) {
-						distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
-							(target_x - hunter_x) * (target_x - hunter_x));
+					bool same_data = false;
+					if (fabs(distance_difference) > 0) same_data = true;
+					distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
+						(target_x - hunter_x) * (target_x - hunter_x));
+					if (not same_data) {
 						if (distance_difference > 12.) go_home = true;
 						if (distance_difference < 3.) go_home = false;
-						double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
-						if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
-						while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
-						while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
-						//turn towards the target
-						double heading_difference = heading_to_target - hunter_heading;
-						while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
-						while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-						heading_difference *= .15;
-						json msgJson;
-						msgJson["turn"] = heading_difference;
-						msgJson["dist"] = distance_difference;
-						auto msg = "42[\"move_hunter\"," + msgJson.dump() + "]";
-						// std::cout << msg << std::endl;
-						ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
 					}
+					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
+					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
+					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
+					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
+					//turn towards the target
+					double heading_difference = heading_to_target - hunter_heading;
+					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
+					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
+					heading_difference *= .15;
+					json msgJson;
+					msgJson["turn"] = heading_difference;
+					msgJson["dist"] = distance_difference;
+					auto msg = "42[\"move_hunter\"," + msgJson.dump() + "]";
+					// std::cout << msg << std::endl;
+					ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
         }
       } else {
         // Manual driving
