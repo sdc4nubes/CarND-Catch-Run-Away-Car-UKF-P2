@@ -85,7 +85,7 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					int v_max = 10;
+					int v_max = 20;
 					if (hunter_x == -10. && target_x.size() == v_max) {
 						target_x.clear();
 						target_y.clear();
@@ -120,7 +120,7 @@ int main() {
 				  double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= .25;
+					heading_difference *= .75;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
