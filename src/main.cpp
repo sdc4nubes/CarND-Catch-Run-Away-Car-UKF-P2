@@ -95,10 +95,6 @@ int main() {
 					double heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
-					//turn towards the target
-					double heading_difference = heading_to_target - hunter_heading;
-					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
-					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 					double save_difference = distance_difference;
 					distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
@@ -108,6 +104,10 @@ int main() {
 						heading_to_target *= -1;
 						d_ctr = 0;
 					}
+					//turn towards the target
+					double heading_difference = heading_to_target - hunter_heading;
+					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
+					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
           json msgJson;
 					//cout << distance_difference << endl;
           msgJson["turn"] = heading_difference;
