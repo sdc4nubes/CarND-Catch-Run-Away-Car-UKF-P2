@@ -1,5 +1,6 @@
 #include <uWS/uWS.h>
 #include <iostream>
+#include <vector>
 #include "json.hpp"
 #include <math.h>
 #include "ukf.h"
@@ -28,8 +29,8 @@ int main() {
   uWS::Hub h;
   // Create a UKF instance
   UKF ukf;
-  double target_x = 0.0;
-	double target_y = 0.0;
+  vector<double> target_x (0);
+	vector<double> target_y (0);
   h.onMessage([&ukf, &target_x, &target_y](uWS::WebSocket<uWS::SERVER> ws, char *data, 
 		size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
@@ -84,13 +85,16 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					double save_target_x = target_x;
-					double save_target_y = target_y;
-					target_x = .1 * ukf.x_[0] + .9 * save_target_x;
-					target_y = .1 * ukf.x_[1] + .9 * save_target_y;
-					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
-						(target_x - hunter_x) * (target_x - hunter_x));
-					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
+					target_x.insert(1, ukf.x_[0]);
+					if (target_x.size > 10) target_x.pop_back();
+					target_y.insert(1, ukf.x_[1]);
+					if (target_y.size > 10) target_y.pop_back();
+					double avg_x = accumulate(target_x.begin(), target_x.end(), 0.0) / target_x.size;
+					double avg_y = accumulate(target_y.begin(), target_y.end(), 0.0) / target_y.size;
+					cout << avg_x << ", " << avg_y << endl;
+					double distance_difference = sqrt((avg_y - hunter_y) * (avg_y - hunter_y) + \
+						(avg_x - hunter_x) * (avg_x - hunter_x));
+					double heading_to_target = 1. / -atan2(avg_y - hunter_y, avg_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
