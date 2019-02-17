@@ -88,13 +88,14 @@ int main() {
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
 					int iflag = 0;
+					double heading_difference;
 					double heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (iflag < 2) {
 						double heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 						while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 						while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 						//turn towards the target
-						double heading_difference = heading_to_target - hunter_heading;
+						heading_difference = heading_to_target - hunter_heading;
 						while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 						while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 						double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
