@@ -100,6 +100,7 @@ int main() {
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
+					if (distance_difference < .5) heading_difference = 0;
           json msgJson;
 					//cout << distance_difference << endl;
           msgJson["turn"] = heading_difference;
