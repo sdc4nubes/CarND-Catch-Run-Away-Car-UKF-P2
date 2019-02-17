@@ -92,6 +92,8 @@ int main() {
 					target_y = ukf.x_[1];
 					int iflag = 0;
 					double heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
+					if (distance_difference > 2.) 
+						heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					double save_difference = distance_difference;
