@@ -86,7 +86,6 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					//cout << "h_x:, " << hunter_x << ", h_y:, " << hunter_y << ", t_x:, " << target_x << ", t_y:, " << target_y << ", p_x:, " << ukf.x_[0] << ", p_y:, " << ukf.x_[1] << endl;
 					double save_target_x = target_x;
 					double save_target_y = target_y; 
 					target_x = ukf.x_[0];
@@ -100,7 +99,7 @@ int main() {
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference > save_difference) d_ctr += 1;
 					else d_ctr = 0;
-					if (d_ctr == 5) {
+					if (d_ctr >= 5) {
 						heading_to_target *= -1;
 						d_ctr = 0;
 					}
@@ -109,7 +108,7 @@ int main() {
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
           json msgJson;
-					//cout << distance_difference << endl;
+					cout << distance_difference << ", " << d_ctr << endl;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
           auto msg = "42[\"move_hunter\"," + msgJson.dump() + "]";
