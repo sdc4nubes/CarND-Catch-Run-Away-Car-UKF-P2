@@ -97,6 +97,7 @@ int main() {
     			double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
           json msgJson;
+					cout << heading_difference << endl;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
           auto msg = "42[\"move_hunter\"," + msgJson.dump() + "]";
