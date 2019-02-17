@@ -30,8 +30,9 @@ int main() {
   UKF ukf;
   double target_x = 0.;
 	double target_y = 0.;
+	double min_distance = 99.;
 	bool go_home = false;
-  h.onMessage([&ukf, &target_x, &target_y, &go_home]
+  h.onMessage([&ukf, &target_x, &target_y, &go_home, &min_distance]
 		(uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -90,9 +91,10 @@ int main() {
 					target_y = ukf.x_[1];
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
-					if (distance_difference > 6.) go_home = true;
+					if (distance_difference < min_distance) min_distance = distance_difference;
+					if (distance_difference > 6.&& min_distance < 3.) go_home = true;
 					if (distance_difference < 3.) go_home = false;
-					double heading_to_target = 1.15 / -atan2(target_y - hunter_y, target_x - hunter_x);
+					double heading_to_target = .25 / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
