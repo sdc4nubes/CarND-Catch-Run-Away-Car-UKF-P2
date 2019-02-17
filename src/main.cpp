@@ -90,7 +90,7 @@ int main() {
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference > 15.) go_home = true;
-					if (go_home && distance_difference < 5.) {
+					if (go_home && distance_difference < 1.) {
 						go_home = false;
 						target_x = 0.;
 						target_y = 0.;
