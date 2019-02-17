@@ -30,7 +30,8 @@ int main() {
   UKF ukf;
   double target_x = 0.0;
 	double target_y = 0.0;
-  h.onMessage([&ukf,&target_x,&target_y](uWS::WebSocket<uWS::SERVER> ws, char *data, 
+	double distance_difference = 0.0;
+  h.onMessage([&ukf,&target_x,&target_y, &distance_difference](uWS::WebSocket<uWS::SERVER> ws, char *data, 
 		size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -89,8 +90,8 @@ int main() {
 					target_y = ukf.x_[1];
 					int iflag = 0;
 					double heading_difference;
-					double distance_difference;
 					double heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
+					double save_difference = distance_difference;
 					while (iflag < 2) {
 						while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 						while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
@@ -102,6 +103,7 @@ int main() {
 							(target_x - hunter_x) * (target_x - hunter_x));
 						if (iflag == 0) {
 							heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
+							if (distance_difference > save_difference) heading_to_target *= -1.;
 							iflag += 1;
 						}
 						else {
