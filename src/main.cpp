@@ -91,6 +91,15 @@ int main() {
 					if (target_y.size() > 10) target_y.pop_back();
 					double avg_x = accumulate(target_x.begin(), target_x.end(), 0.0) / target_x.size();
 					double avg_y = accumulate(target_y.begin(), target_y.end(), 0.0) / target_y.size();
+					if (target_x.size() > 2) {
+						size_t size;
+						sort(target_x.begin(), target_x.end());
+						if (size % 2 == 0) avg_x = (target_x[size / 2 - 1] + target_x[size / 2]) / 2;
+						else avg_x = target_x[size / 2];
+						sort(target_y.begin(), target_y.end());
+						if (size % 2 == 0) avg_y = (target_y[size / 2 - 1] + target_y[size / 2]) / 2;
+						else avg_y = target_y[size / 2];
+					}
 					double distance_difference = sqrt((avg_y - hunter_y) * (avg_y - hunter_y) + \
 						(avg_x - hunter_x) * (avg_x - hunter_x));
 					double heading_to_target = 1. / -atan2(avg_y - hunter_y, avg_x - hunter_x);
