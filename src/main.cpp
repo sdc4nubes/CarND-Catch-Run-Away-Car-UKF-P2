@@ -98,8 +98,8 @@ int main() {
 					if ((distance_difference > 9. && min_distance < 3.) || distance_difference > 12.)
 						go_home = true;
 					if (distance_difference < 3.) go_home = false;
-					double num = 1.;
-					if (min_distance < 3.) num = .5;
+					double num = .75;
+					if (min_distance < 3.) num = .15;
 					double heading_to_target = num / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
