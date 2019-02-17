@@ -94,8 +94,11 @@ int main() {
 					double distance_difference = sqrt((avg_y - hunter_y) * (avg_y - hunter_y) + \
 						(avg_x - hunter_x) * (avg_x - hunter_x));
 					double heading_to_target = 1. / -atan2(avg_y - hunter_y, avg_x - hunter_x);
-					if (distance_difference < .4)
+					if (distance_difference < .4) {
+						avg_x = target_x.back();
+						avg_y = target_y.back();
 						heading_to_target = atan2(avg_y - hunter_y, avg_x - hunter_x);
+					}
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
