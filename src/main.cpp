@@ -85,9 +85,15 @@ int main() {
           iss_R >> timestamp_R;
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
-					if (target_x.size() == 0) cout << go_home << endl;
-					target_x.insert(target_x.begin(), ukf.x_[0]);
-					target_y.insert(target_y.begin(), ukf.x_[1]);
+					double t_x = ukf.x_[0];
+					double t_y = ukf.x_[1];
+					if (t_x == 0. && t_y == 0.) {
+						target_x.clear();
+						target_y.clear();
+						go_home = false;
+					}
+					target_x.insert(target_x.begin(), t_x);
+					target_y.insert(target_y.begin(), t_y);
 					int v_max = 10;
 					while (target_x.size() > v_max) target_x.pop_back();
 					while (target_y.size() > v_max) target_y.pop_back();
