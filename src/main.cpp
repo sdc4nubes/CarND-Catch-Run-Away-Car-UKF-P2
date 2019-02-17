@@ -103,7 +103,11 @@ int main() {
 						if (distance_difference > 1.) {
 							heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
 							iflag += 1;
-						} else iflag = 2;
+						}
+						else {
+							iflag = 2;
+							heading_to_target *= 1.1;
+						}
 					}
           json msgJson;
 					//cout << distance_difference << endl;
