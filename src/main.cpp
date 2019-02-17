@@ -28,9 +28,10 @@ int main() {
   uWS::Hub h;
   // Create a UKF instance
   UKF ukf;
-  double target_x;
-	double target_y;
-  h.onMessage([&ukf, &target_x, &target_y](uWS::WebSocket<uWS::SERVER> ws, char *data, 
+  double target_x = 0.0;
+	double target_y = 0.0;
+	bool go_home = false;
+  h.onMessage([&ukf, &target_x, &target_y, &go_home](uWS::WebSocket<uWS::SERVER> ws, char *data, 
 		size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
@@ -86,8 +87,14 @@ int main() {
     			ukf.ProcessMeasurement(meas_package_R);
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
+					if (go_home) {
+						target_x = 0.0;
+						target_y = 0.0;
+						if (fabs(hunter_y) < .1 && fabs(hunter_x) < .1) go_home = false;
+					}
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
+					if (distance_difference > 20) go_home = true;
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
