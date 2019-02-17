@@ -95,6 +95,7 @@ int main() {
 					if (go_home && distance_difference < 3.) {
 						target_x = 0.;
 						target_y = 0.;
+						if (distance_difference < .1) go_home = false;
 					}
 					double heading_to_target = 1. / -atan2(target_y - hunter_y, target_x - hunter_x);
 					if (go_home) heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
