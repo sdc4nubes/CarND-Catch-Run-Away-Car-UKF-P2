@@ -89,6 +89,7 @@ int main() {
 					target_y = ukf.x_[1];
 					int iflag = 0;
 					double heading_difference;
+					double distance_difference;
 					double heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
 					while (iflag < 2) {
 						double heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
@@ -98,7 +99,7 @@ int main() {
 						heading_difference = heading_to_target - hunter_heading;
 						while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 						while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-						double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
+						distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 							(target_x - hunter_x) * (target_x - hunter_x));
 						if (distance_difference > 1.) {
 							heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
