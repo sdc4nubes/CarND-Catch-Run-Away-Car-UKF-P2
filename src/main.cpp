@@ -91,25 +91,15 @@ int main() {
 					target_y = ukf.x_[1];
 					int iflag = 0;
 					double heading_difference;
-					double heading_to_target = atan2(target_y - hunter_y, target_x - hunter_x);
-					double distance_difference;
-					while (iflag < 2) {
-						while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
-						while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
-						//turn towards the target
-						heading_difference = heading_to_target - hunter_heading;
-						while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
-						while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-						distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
-							(target_x - hunter_x) * (target_x - hunter_x));
-						if (iflag == 0 && target_x != save_target_x && target_y != save_target_y) {
-							heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
-							iflag += 1;
-						}
-						else {
-							iflag = 2;
-						}
-					}
+					double heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
+					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
+					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
+					//turn towards the target
+					heading_difference = heading_to_target - hunter_heading;
+					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
+					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
+					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
+						(target_x - hunter_x) * (target_x - hunter_x));
           json msgJson;
 					//cout << distance_difference << endl;
           msgJson["turn"] = heading_difference;
