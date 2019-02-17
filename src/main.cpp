@@ -91,8 +91,8 @@ int main() {
 						target_y.clear();
 						go_home = false;
 					}
-					target_x.insert(target_x.begin(), ukf.x_[0]);
-					target_y.insert(target_y.begin(), ukf.x_[1]);
+					if (ukf.x_[0] != target_x.back) target_x.insert(target_x.begin(), ukf.x_[0]);
+					if (ukf.x_[1] != target_y.back) target_y.insert(target_y.begin(), ukf.x_[1]);
 					while (target_x.size() > v_max) target_x.pop_back();
 					while (target_y.size() > v_max) target_y.pop_back();
 					double x_median;
@@ -120,7 +120,7 @@ int main() {
 				  double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= .25;
+					heading_difference *= .15;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
