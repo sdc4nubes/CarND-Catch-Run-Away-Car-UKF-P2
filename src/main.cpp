@@ -90,6 +90,10 @@ int main() {
 					double save_y = target_y;
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
+					if (save_x == target_x) target_x += save_x;
+					else save_x -= target_x;
+					if (save_y == target_y) target_y += save_y;
+					else save_y -= target_x;
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference > 12.) go_home = true;
