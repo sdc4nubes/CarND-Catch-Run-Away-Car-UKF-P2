@@ -85,6 +85,8 @@ int main() {
           meas_package_R.timestamp_ = timestamp_R;
     			ukf.ProcessMeasurement(meas_package_R);
 					//cout << "h_x:, " << hunter_x << ", h_y:, " << hunter_y << ", t_x:, " << target_x << ", t_y:, " << target_y << ", p_x:, " << ukf.x_[0] << ", p_y:, " << ukf.x_[1] << endl;
+					double save_target_x = target_x;
+					double save_target_y = target_y; 
 					target_x = ukf.x_[0];
 					target_y = ukf.x_[1];
 					int iflag = 0;
@@ -108,8 +110,6 @@ int main() {
 							iflag = 2;
 						}
 					}
-					double save_target_x = target_x;
-					double save_target_y = target_y;
           json msgJson;
 					//cout << distance_difference << endl;
           msgJson["turn"] = heading_difference;
