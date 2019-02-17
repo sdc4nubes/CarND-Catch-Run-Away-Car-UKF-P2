@@ -30,9 +30,10 @@ int main() {
   UKF ukf;
   double target_x = 0.0;
 	double target_y = 0.0;
+	double heading_difference = 0.;
 	bool go_home = false;
-  h.onMessage([&ukf, &target_x, &target_y, &go_home](uWS::WebSocket<uWS::SERVER> ws, char *data, 
-		size_t length, uWS::OpCode opCode) {
+  h.onMessage([&ukf, &target_x, &target_y, &heading_difference, &go_home]
+		(uWS::WebSocket<uWS::SERVER> ws, char *data, size_t length, uWS::OpCode opCode) {
     // "42" at the start of the message means there's a websocket message event.
     // The 4 signifies a websocket message
     // The 2 signifies a websocket event
@@ -96,10 +97,11 @@ int main() {
 					while (heading_to_target > M_PI) heading_to_target -= 2. * M_PI;
 					while (heading_to_target < -M_PI) heading_to_target += 2. * M_PI;
 					//turn towards the target
-					double heading_difference = heading_to_target - hunter_heading;
+					double save_hdiff = heading_difference;
+				  heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
-					heading_difference *= .25;
+					heading_difference *= .1 + save_hdiff * .9;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
