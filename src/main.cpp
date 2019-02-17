@@ -91,7 +91,6 @@ int main() {
 					if (target_y.size() > 20) target_y.pop_back();
 					double avg_x = accumulate(target_x.begin(), target_x.end(), 0.0) / target_x.size();
 					double avg_y = accumulate(target_y.begin(), target_y.end(), 0.0) / target_y.size();
-					cout << avg_x << ", " << avg_y << endl;
 					double distance_difference = sqrt((avg_y - hunter_y) * (avg_y - hunter_y) + \
 						(avg_x - hunter_x) * (avg_x - hunter_x));
 					double heading_to_target = 1. / -atan2(avg_y - hunter_y, avg_x - hunter_x);
@@ -101,6 +100,7 @@ int main() {
 					double heading_difference = heading_to_target - hunter_heading;
 					while (heading_difference > M_PI) heading_difference -= 2.* M_PI;
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
+					heading_difference *= .25;
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
