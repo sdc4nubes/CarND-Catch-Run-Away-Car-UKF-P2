@@ -104,7 +104,8 @@ int main() {
 							(target_x - hunter_x) * (target_x - hunter_x));
 						if (iflag == 0 && target_x != save_target_x && target_y != save_target_y) {
 							heading_to_target = 1 / -atan2(target_y - hunter_y, target_x - hunter_x);
-							if (distance_difference > 10) heading_to_target *= -1;
+							if (distance_difference > 10.) heading_to_target *= -1;
+							while (distance_difference > 5.) heading_to_target += 0;
 							iflag += 1;
 						}
 						else {
