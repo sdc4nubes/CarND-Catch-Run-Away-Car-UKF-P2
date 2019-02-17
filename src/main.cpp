@@ -90,8 +90,7 @@ int main() {
 					double distance_difference = sqrt((target_y - hunter_y) * (target_y - hunter_y) + \
 						(target_x - hunter_x) * (target_x - hunter_x));
 					if (distance_difference > 15.) go_home = true;
-					if (go_home && distance_difference < 1.) {
-						go_home = false;
+					if (go_home && distance_difference < 3.) {
 						target_x = 0.;
 						target_y = 0.;
 					}
@@ -105,8 +104,8 @@ int main() {
 					while (heading_difference < -M_PI) heading_difference += 2. * M_PI;
 					if (not go_home) heading_difference *= .5;
 					if (distance_difference < .3) heading_difference *= .2;
-					else if (heading_difference > 0.) heading_difference = min(heading_difference, .5);
-					else heading_difference = max(heading_difference, -.5);
+					else if (heading_difference > 0.) heading_difference = min(heading_difference, .25);
+					else heading_difference = max(heading_difference, -.25);
           json msgJson;
           msgJson["turn"] = heading_difference;
           msgJson["dist"] = distance_difference; 
